@@ -1,12 +1,5 @@
 import apiClient from './apiClient';
 
-export const configService = {
-  getPublicConfig: async () => {
-    const response = await apiClient.get('/config');
-    return response.data;
-  },
-};
-
 export const authService = {
   register: async (username, email, password) => {
     try {

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { authService, configService } from '../services/api';
+import { authService } from '../services/api';
 import './AuthPage.css';
 
 const AuthPage = () => {
@@ -8,7 +8,6 @@ const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [authEnabled, setAuthEnabled] = useState(false);
   const [guestMode, setGuestMode] = useState(true);
 
   const [formData, setFormData] = useState({
@@ -17,12 +16,6 @@ const AuthPage = () => {
     password: '',
     confirmPassword: '',
   });
-
-  useEffect(() => {
-    configService.getPublicConfig()
-      .then((response) => setAuthEnabled(Boolean(response.data.authEnabled)))
-      .catch(() => setAuthEnabled(false));
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,7 +46,11 @@ const AuthPage = () => {
         login(response.data.user, response.data.token);
       }
     } catch (err) {
-      setError(err.message || 'An error occurred');
+      const validationMessage = err.errors?.map((item) => item.message).join('. ');
+      const message = err.message === 'Network Error'
+        ? 'Cannot reach the server. Make sure the backend is running on port 5000.'
+        : err.message;
+      setError(validationMessage || message || 'An error occurred');
     } finally {
       setIsLoading(false);
     }
@@ -65,15 +62,15 @@ const AuthPage = () => {
         <h1 className="auth-title">Real-Time Chat</h1>
 
         <div className="auth-mode-selector">
-          {authEnabled && (
-            <button
-              className={`mode-btn ${guestMode ? '' : 'active'}`}
-              onClick={() => setGuestMode(false)}
-            >
-              Account
-            </button>
-          )}
           <button
+            type="button"
+            className={`mode-btn ${guestMode ? '' : 'active'}`}
+            onClick={() => setGuestMode(false)}
+          >
+            Account
+          </button>
+          <button
+            type="button"
             className={`mode-btn ${guestMode ? 'active' : ''}`}
             onClick={() => setGuestMode(true)}
           >

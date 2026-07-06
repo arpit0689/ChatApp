@@ -22,7 +22,9 @@ apiClient.interceptors.request.use((config) => {
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const requestUrl = error.config?.url || '';
+    const hasToken = Boolean(localStorage.getItem('token'));
+    if (error.response?.status === 401 && hasToken && !requestUrl.includes('/auth/')) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/';
