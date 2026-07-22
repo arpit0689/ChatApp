@@ -8,7 +8,6 @@ jest.mock('../src/utils/jwt', () => ({
   generateToken: jest.fn(),
 }));
 
-const config = require('../src/config/env');
 const userService = require('../src/services/userService');
 const { generateToken } = require('../src/utils/jwt');
 const authController = require('../src/controllers/authController');
@@ -21,15 +20,8 @@ const createResponse = () => {
 };
 
 describe('AuthController', () => {
-  const originalAuthSetting = config.ENABLE_AUTH;
-
   beforeEach(() => {
     jest.clearAllMocks();
-    config.ENABLE_AUTH = true;
-  });
-
-  afterAll(() => {
-    config.ENABLE_AUTH = originalAuthSetting;
   });
 
   test('register creates an account and returns a JWT', async () => {
@@ -104,23 +96,4 @@ describe('AuthController', () => {
     expect(response.status).toHaveBeenCalledWith(201);
   });
 
-  test('registration reports when account authentication is disabled', async () => {
-    config.ENABLE_AUTH = false;
-    const response = createResponse();
-
-    await authController.register(
-      {
-        body: {
-          username: 'member',
-          email: 'member@example.com',
-          password: 'secret123',
-        },
-      },
-      response,
-      jest.fn()
-    );
-
-    expect(response.status).toHaveBeenCalledWith(403);
-    expect(userService.createUser).not.toHaveBeenCalled();
-  });
 });

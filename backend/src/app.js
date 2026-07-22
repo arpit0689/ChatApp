@@ -51,7 +51,7 @@ app.get('/health/ready', (req, res) => {
 app.get('/api/config', (req, res) => {
   res.status(200).json({
     statusCode: 200,
-    data: { authEnabled: config.ENABLE_AUTH },
+    data: { authEnabled: true },
   });
 });
 app.use('/api/auth', authRoutes);

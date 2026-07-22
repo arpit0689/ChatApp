@@ -65,14 +65,20 @@ const AuthPage = () => {
           <button
             type="button"
             className={`mode-btn ${guestMode ? '' : 'active'}`}
-            onClick={() => setGuestMode(false)}
+            onClick={() => {
+              setGuestMode(false);
+              setError('');
+            }}
           >
             Account
           </button>
           <button
             type="button"
             className={`mode-btn ${guestMode ? 'active' : ''}`}
-            onClick={() => setGuestMode(true)}
+            onClick={() => {
+              setGuestMode(true);
+              setError('');
+            }}
           >
             Guest
           </button>

@@ -2,10 +2,6 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/env');
 
 const authenticateToken = (req, res, next) => {
-  if (!config.ENABLE_AUTH) {
-    return next();
-  }
-
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
@@ -24,10 +20,6 @@ const authenticateToken = (req, res, next) => {
 };
 
 const optionalAuth = (req, res, next) => {
-  if (!config.ENABLE_AUTH) {
-    return next();
-  }
-
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 

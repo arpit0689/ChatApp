@@ -111,7 +111,7 @@ module.exports = {
       post: {
         tags: ['Authentication'],
         summary: 'Register an account',
-        description: 'Available when ENABLE_AUTH=true.',
+        description: 'Creates an account and returns a JWT.',
         requestBody: {
           required: true,
           content: {
@@ -140,7 +140,7 @@ module.exports = {
       post: {
         tags: ['Authentication'],
         summary: 'Log in',
-        description: 'Available when ENABLE_AUTH=true.',
+        description: 'Authenticates an account and returns a JWT.',
         requestBody: {
           required: true,
           content: {

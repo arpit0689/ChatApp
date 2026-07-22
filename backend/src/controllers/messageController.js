@@ -5,7 +5,7 @@ class MessageController {
   async createMessage(req, res, next) {
     try {
       const { content, roomId } = req.body;
-      const senderId = req.user?.userId || (!config.ENABLE_AUTH ? req.body.senderId : null);
+      const senderId = req.user?.userId || req.body.senderId;
 
       if (!senderId) {
         return res.status(401).json({ message: 'Unauthorized' });

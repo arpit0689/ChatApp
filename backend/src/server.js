@@ -31,7 +31,7 @@ const startServer = async () => {
     server.listen(config.PORT, config.HOST, () => {
       console.log(`\n🚀 Server running at http://${config.HOST}:${config.PORT}`);
       console.log(`Environment: ${config.NODE_ENV}`);
-      console.log(`Authentication: ${config.ENABLE_AUTH ? 'Enabled' : 'Disabled (Guest mode)'}\n`);
+      console.log('Authentication: Account and guest access enabled\n');
     });
   } catch (error) {
     console.error('Failed to start server:', error);

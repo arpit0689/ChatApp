@@ -24,7 +24,6 @@ module.exports = {
   MAX_USERNAME_LENGTH: toInteger(process.env.MAX_USERNAME_LENGTH, 30),
   RATE_LIMIT_WINDOW_MS: toInteger(process.env.RATE_LIMIT_WINDOW_MS, 900000),
   RATE_LIMIT_MAX_REQUESTS: toInteger(process.env.RATE_LIMIT_MAX_REQUESTS, 100),
-  ENABLE_AUTH: process.env.ENABLE_AUTH === 'true',
   MESSAGES_PER_PAGE: toInteger(process.env.MESSAGES_PER_PAGE, 50),
   isDev: process.env.NODE_ENV === 'development',
   isProd: process.env.NODE_ENV === 'production'

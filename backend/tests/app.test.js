@@ -1,6 +1,5 @@
 const request = require('supertest');
 const app = require('../src/app');
-const config = require('../src/config/env');
 
 describe('system endpoints', () => {
   test('GET /health reports a live process', async () => {
@@ -30,7 +29,7 @@ describe('system endpoints', () => {
   test('GET /api/config exposes safe runtime configuration', async () => {
     const response = await request(app).get('/api/config').expect(200);
 
-    expect(response.body.data).toEqual({ authEnabled: config.ENABLE_AUTH });
+    expect(response.body.data).toEqual({ authEnabled: true });
   });
 
   test('GET /api-docs/ serves Swagger UI', async () => {

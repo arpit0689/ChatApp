@@ -1,13 +1,8 @@
 const userService = require('../services/userService');
-const config = require('../config/env');
 
 class AuthController {
   async register(req, res, next) {
     try {
-      if (!config.ENABLE_AUTH) {
-        return res.status(403).json({ message: 'Registration is disabled' });
-      }
-
       const { username, email, password } = req.body;
 
       const user = await userService.createUser(username, email, password);
@@ -32,10 +27,6 @@ class AuthController {
 
   async login(req, res, next) {
     try {
-      if (!config.ENABLE_AUTH) {
-        return res.status(403).json({ message: 'Authentication is disabled' });
-      }
-
       const { username, password } = req.body;
 
       const { user, token } = await userService.loginUser(username, password);
